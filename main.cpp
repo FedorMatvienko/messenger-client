@@ -12,59 +12,63 @@ int main()
     string s1 = config["first"].asString();
     string s2 = config["second"].asString();
     cout << s1 << " " << s2 << endl;
-
-    // Инициализация GLFW
-    if (!glfwInit()) {
-        // Обработка ошибки инициализации GLFW
-        return -1;
-    }
+    while(true);
+    // // Инициализация GLFW
+    // if (!glfwInit()) {
+    //     // Обработка ошибки инициализации GLFW
+    //     return -1;
+    // }
     
-    // Создание окна
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Мое окно", nullptr, nullptr);
-    if (!window) {
-        // Обработка ошибки создания окна
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    // Инициализация ImGui
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
+    // // // Создание окна
+    // GLFWwindow* window = glfwCreateWindow(800, 600, "Мое окно", nullptr, nullptr);
+    // if (!window)
+    // {
+    //     // Обработка ошибки создания окна
+    //     glfwTerminate();
+    //     return -1;
+    // }
+    // glfwMakeContextCurrent(window);
+    // // Инициализация ImGui
+    // IMGUI_CHECKVERSION();
+    // ImGui::CreateContext();
 
-    // Настройка ImGui для работы с GLFW
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
+    // // Настройка ImGui для работы с GLFW
+    // ImGui_ImplGlfw_InitForOpenGL(window, true);
+    // ImGui_ImplOpenGL3_Init("#version 330");
 
-    // Основной цикл программы
-    while (!glfwWindowShouldClose(window)) {
-        // Обработка событий
-        glfwPollEvents();
+
+
+    // // Основной цикл программы
+    // while (!glfwWindowShouldClose(window)) {
+    //     glClear(GL_COLOR_BUFFER_BIT);
+    //     // Обработка событий
+    //     glfwPollEvents();
+
+    //     // Начало нового кадра ImGui
+    //     ImGui_ImplOpenGL3_NewFrame();
+    //     ImGui_ImplGlfw_NewFrame();    
+    //     ImGui::NewFrame();
+
+    //     // Создание пользовательского интерфейса ImGui
+    //     ImGui::Begin("Hello, ImGui!");
+    //     ImGui::Text("Welcome to ImGui!");
+    //     if (ImGui::Button("Click Me!"))
+    //     {
+    //     }
+
+
+
+    //     ImGui::End();
+    //             // Рендеринг ImGui
+    //     ImGui::Render();
+    //     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
-        // Начало нового кадра ImGui
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        // Создание пользовательского интерфейса ImGui
-        ImGui::Begin("Hello, ImGui!");
-        ImGui::Text("Welcome to ImGui!");
-        if (ImGui::Button("Click Me!"))
-        {
-            // Действие при нажатии на кнопку
-            // ...
-        }
-        ImGui::End();
-
-        // Рендеринг ImGui
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        
-        // Swap буферов
-        glfwSwapBuffers(window);
-    }
+    //     // Swap буферов
+    //     glfwSwapBuffers(window);
+    // }
     
-    // Очистка и выход из программы
-    glfwTerminate();
+    // // Очистка и выход из программы
+    // glfwTerminate();
 
     return 0;
 }
