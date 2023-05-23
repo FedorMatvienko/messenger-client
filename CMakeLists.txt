@@ -18,9 +18,9 @@ add_executable( ${project} main.cpp )
 if ( BUILD_TYPE STREQUAL "Windows")
     # Сборка для Windows
     add_compile_definitions( WINDOWS )
-    include_directories("/home/fedor/iss/client-mes/dist/json")
-    find_library( JSONLIB NAMES libjsoncpp PATHS "/home/fedor/iss/client-mes/dist/" REGISTRY_VIEW BOTH)
-    find_library( GLFWLIB NAMES libglfw3 PATHS "/home/fedor/iss/client-mes/dist/" REGISTRY_VIEW BOTH)
+    include_directories("/home/fedor/iss/messenger-client/libraries/include")
+    find_library( JSONLIB NAMES libjsoncpp PATHS "/home/fedor/iss/messenger-client/libraries" REGISTRY_VIEW BOTH )
+    find_library( GLFWLIB NAMES libglfw3 PATHS "/home/fedor/iss/messenger-client/libraries" REGISTRY_VIEW BOTH )
     target_link_libraries(${project} ${JSONLIB} ${GLFWLIB})
 else()
     # Сборка для Ubuntu
