@@ -1,35 +1,29 @@
-# set(JSONCPP_INCLUDE_DIR "/usr/include/jsoncpp/json/" CACHE PATH "Path to jsoncpp include directory")
-# set(JSONCPP_LIBRARY "/usr/lib/x86_64-linux-gnu/libjsoncpp.a" CACHE FILEPATH "Path to jsoncpp library")
-# add_library(jsoncpp STATIC IMPORTED)
-# include_directories(${JSONCPP_INCLUDE_DIR})
-# set_target_properties(jsoncpp PROPERTIES IMPORTED_LOCATION ${JSONCPP_LIBRARY})
 
 # Определение библиотек и опций компиляции
 cmake_minimum_required( VERSION 3.8.0 )
+
+# Получение значение из cross-build.sh, по умолчанию значение Ubuntu
+set( BUILD_TYPE "Ubuntu" CACHE STRING "build type" )
+set( UBUNTU )
+set( WINDOWS )
+# Установка стандарта для компилятора, чтобы программа видела стандарт +17
+set( CMAKE_CXX_STANDARD 17 )
+# Установка названия проекта
 set ( project client )
-project ( ${project})
-set(CMAKE_CXX_STANDARD 17)
+
+project ( ${project} )
 
 add_executable( ${project} main.cpp )
-# set(CMAKE_PREFIX_PATH /usr/lib/x86_64-linux-gnu)
 
-include_directories("/home/fedor/iss/client-mes/dist/json")
-find_library( JSONLIB NAMES libjsoncpp PATHS "/home/fedor/iss/client-mes/dist/" REGISTRY_VIEW BOTH)
-find_library( GLFWLIB NAMES libglfw3 PATHS "/home/fedor/iss/client-mes/dist/" REGISTRY_VIEW BOTH)
-
-# set(CMAKE_FIND_ROOT_PATH "/usr/lib/x86_64-linux-gnu/")
-# find_package(jsoncpp CONFIG REQUIRED)
-# set(SOURCE_CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH})
-# set(CMAKE_PREFIX_PATH "/usr/lib/i386-linux-gnu/cmake/jsoncpp/;/usr/lib/x86_64-linux-gnu/cmake/jsoncpp/")
-# find_package(jsoncpp CONFIG REQUIRED)
-# set(CMAKE_PREFIX_PATH ${SOURCE_CMAKE_PREFIX_PATH})
-
-# Создание dll библиотеки
-# add_library(mylib SHARED "/usr/lib/x86_64-linux-gnu/libjsoncpp.a")
-# set_target_properties(mylib PROPERTIES LINKER_LANGUAGE CXX)
-# set_target_properties(mylib PROPERTIES LINKER_LANGUAGE C)
-# set_target_properties(mylib PROPERTIES OUTPUT_NAME "mylib" SUFFIX ".dll")
-
-
-target_link_libraries(${project} ${JSONLIB} ${GLFWLIB})
-# target_link_libraries(${project} jsoncpp glfw)
+if ( BUILD_TYPE STREQUAL "Windows")
+    # Сборка для Windows
+    add_compile_definitions( WINDOWS )
+    include_directories("/home/fedor/iss/client-mes/dist/json")
+    find_library( JSONLIB NAMES libjsoncpp PATHS "/home/fedor/iss/client-mes/dist/" REGISTRY_VIEW BOTH)
+    find_library( GLFWLIB NAMES libglfw3 PATHS "/home/fedor/iss/client-mes/dist/" REGISTRY_VIEW BOTH)
+    target_link_libraries(${project} ${JSONLIB} ${GLFWLIB})
+else()
+    # Сборка для Ubuntu
+    add_compile_definitions( UBUNTU )
+    target_link_libraries(${project} jsoncpp glfw)
+endif()

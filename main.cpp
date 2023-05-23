@@ -6,7 +6,7 @@ int main()
 
     Json::Value config;
     std::filesystem::path path = std::filesystem::current_path() / "client.json";
-    
+    cout << path << endl;
     std::ifstream file_json(path.string());
     file_json >> config;
     string s1 = config["first"].asString();
