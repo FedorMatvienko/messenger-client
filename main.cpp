@@ -26,13 +26,38 @@ int main()
         glfwTerminate();
         return -1;
     }
-    
+    glfwMakeContextCurrent(window);
+    // Инициализация ImGui
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+
+    // Настройка ImGui для работы с GLFW
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+
     // Основной цикл программы
     while (!glfwWindowShouldClose(window)) {
         // Обработка событий
         glfwPollEvents();
         
-        // Ваш код отрисовки и обновления окна
+        // Начало нового кадра ImGui
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        // Создание пользовательского интерфейса ImGui
+        ImGui::Begin("Hello, ImGui!");
+        ImGui::Text("Welcome to ImGui!");
+        if (ImGui::Button("Click Me!"))
+        {
+            // Действие при нажатии на кнопку
+            // ...
+        }
+        ImGui::End();
+
+        // Рендеринг ImGui
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
         // Swap буферов
         glfwSwapBuffers(window);

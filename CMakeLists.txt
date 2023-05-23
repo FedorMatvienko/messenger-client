@@ -14,6 +14,7 @@ project ( ${project} )
 
 add_executable( ${project}
     main.cpp
+    libraries/imgui/imgui_impl_opengl3.cpp
     libraries/imgui/imgui_draw.cpp
     libraries/imgui/imgui_impl_glfw.cpp
     libraries/imgui/imgui_tables.cpp
@@ -32,5 +33,5 @@ if ( BUILD_TYPE STREQUAL "Windows")
 else()
     # Сборка для Ubuntu
     add_compile_definitions( UBUNTU )
-    target_link_libraries(${project} jsoncpp glfw )
+    target_link_libraries(${project} jsoncpp glfw dl)
 endif()
