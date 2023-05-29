@@ -28,6 +28,14 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(window);
+
+        // Инициализация GLEW
+    if (glewInit() != GLEW_OK) {
+        std::cout << "Failed to initialize GLEW" << std::endl;
+        glfwTerminate();
+        return 0;
+    }
+
     // Инициализация ImGui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
