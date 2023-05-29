@@ -12,16 +12,17 @@ int main()
     string s1 = config["first"].asString();
     string s2 = config["second"].asString();
     cout << s1 << " " << s2 << endl;
-
+    
     // Инициализация GLFW
     if (!glfwInit()) {
         // Обработка ошибки инициализации GLFW
         return -1;
     }
     
-    // Создание окна
+    // // Создание окна
     GLFWwindow* window = glfwCreateWindow(800, 600, "Мое окно", nullptr, nullptr);
-    if (!window) {
+    if (!window)
+    {
         // Обработка ошибки создания окна
         glfwTerminate();
         return -1;
@@ -33,16 +34,19 @@ int main()
 
     // Настройка ImGui для работы с GLFW
     ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
+    ImGui_ImplOpenGL3_Init("#version 130");
+
+
 
     // Основной цикл программы
     while (!glfwWindowShouldClose(window)) {
+        glClear(GL_COLOR_BUFFER_BIT);
         // Обработка событий
         glfwPollEvents();
-        
+
         // Начало нового кадра ImGui
         ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
+        ImGui_ImplGlfw_NewFrame();    
         ImGui::NewFrame();
 
         // Создание пользовательского интерфейса ImGui
@@ -50,12 +54,12 @@ int main()
         ImGui::Text("Welcome to ImGui!");
         if (ImGui::Button("Click Me!"))
         {
-            // Действие при нажатии на кнопку
-            // ...
         }
-        ImGui::End();
 
-        // Рендеринг ImGui
+
+
+        ImGui::End();
+                // Рендеринг ImGui
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
