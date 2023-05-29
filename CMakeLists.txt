@@ -25,11 +25,12 @@ add_executable( ${project}
 if ( BUILD_TYPE STREQUAL "Windows")
     # Сборка для Windows
     add_compile_definitions( WINDOWS )
-    include_directories("/home/fedor/Git/messenger-client/libraries/include")
-    include_directories("/home/fedor/Git/messenger-client/libraries/imgui")
-    find_library( JSONLIB NAMES libjsoncpp PATHS "/home/fedor/Git/messenger-client/libraries" REGISTRY_VIEW BOTH )
-    find_library( GLFWLIB NAMES libglfw3 PATHS "/home/fedor/Git/messenger-client/libraries" REGISTRY_VIEW BOTH )
-    target_link_libraries(${project} ${JSONLIB} ${GLFWLIB})
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/libraries/include")
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/libraries/imgui")
+    find_library( JSONLIB NAMES libjsoncpp PATHS "${CMAKE_CURRENT_SOURCE_DIR}/libraries" REGISTRY_VIEW BOTH )
+    find_library( GLFWLIB NAMES libglfw3 PATHS "${CMAKE_CURRENT_SOURCE_DIR}/libraries" REGISTRY_VIEW BOTH )
+    find_library( OPENGLLIB NAMES opengl32 PATHS "${CMAKE_CURRENT_SOURCE_DIR}/libraries" REGISTRY_VIEW BOTH )
+    target_link_libraries(${project} ${JSONLIB} ${OPENGLLIB} ${GLFWLIB} )
 else()
     # Сборка для Ubuntu
     add_compile_definitions( UBUNTU )
