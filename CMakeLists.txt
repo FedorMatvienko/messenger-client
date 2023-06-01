@@ -25,6 +25,8 @@ add_executable( ${project}
 if ( BUILD_TYPE STREQUAL "Windows")
     # Сборка для Windows
     add_compile_definitions( WINDOWS )
+    # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -municode")
+    # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -municode")
     include_directories("${CMAKE_CURRENT_SOURCE_DIR}/libraries/include")
     include_directories("${CMAKE_CURRENT_SOURCE_DIR}/libraries/imgui")
     set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
@@ -32,7 +34,7 @@ if ( BUILD_TYPE STREQUAL "Windows")
     find_library( GLFWLIB NAMES glfw3 PATHS "${CMAKE_CURRENT_SOURCE_DIR}/libraries" REGISTRY_VIEW BOTH )
     find_library( OPENGLLIB NAMES opengl32 PATHS "${CMAKE_CURRENT_SOURCE_DIR}/libraries" REGISTRY_VIEW BOTH )
     find_library( GLEWLIB NAMES glew32 PATHS "${CMAKE_CURRENT_SOURCE_DIR}/libraries" REGISTRY_VIEW BOTH )
-    target_link_libraries(${project} PUBLIC ${JSONLIB} ${OPENGLLIB} ${GLFWLIB} ${GLEWLIB})
+    target_link_libraries(${project} PUBLIC ${JSONLIB} ${OPENGLLIB} ${GLFWLIB} ${GLEWLIB} ws2_32)
 else()
     # Сборка для Ubuntu
     add_compile_definitions( UBUNTU )
