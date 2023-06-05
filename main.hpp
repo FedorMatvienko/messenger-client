@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
+#include <codecvt>
+#include <locale>
 
 #ifdef UBUNTU
     #include <jsoncpp/json/json.h>

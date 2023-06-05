@@ -26,7 +26,8 @@ fi
 if [ "${WINDOWS:-}" ]; then
       mkdir Windows
       cp ../client.json ./Windows
-      mv client.exe ./Windows
+      mv client.exe /media/sf_Ubuntu/messanger/client.exe 
+
 else
       mkdir Ubuntu
       cp ../client.json ./Ubuntu

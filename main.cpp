@@ -1,22 +1,32 @@
 #include "main.hpp"
-
-//using namespace std;
-std::vector<std::wstring> locals;
-
-int main()
+using namespace std;
+class ConsoleCP
 {
-    // Json::Value config;
-    // std::filesystem::path path = std::filesystem::current_path() / "client.json";
-    // cout << path << endl;
-    // std::ifstream file_json(path.string());
-    // file_json >> config;
-    // string s1 = config["first"].asString();
-    // string s2 = config["second"].asString();
-    // cout << s1 << " " << s2 << endl;
+    int oldin;
+    int oldout;
 
-    
- 
-    setlocale(LC_ALL, "");
+public:
+    ConsoleCP(int cp)
+    {
+        oldin = GetConsoleCP();
+        oldout = GetConsoleOutputCP();
+        SetConsoleCP(cp);
+        SetConsoleOutputCP(cp);
+    }
+
+    // поскольку мы изменили свойства внешнего объекта — консоли, нам нужно
+    // вернуть всё как было (если программа вылетит, пользователю не повезло)
+    ~ConsoleCP()
+    {
+        SetConsoleCP(oldin); 
+        SetConsoleOutputCP(oldout);
+    }
+};
+int main()
+{   
+    ios_base::sync_with_stdio(false);
+    std::string local = std::setlocale(LC_ALL, "");
+    ConsoleCP cp(1251);
 
     WSADATA wsaData;
     SOCKET clientSocket;
@@ -65,12 +75,15 @@ int main()
 
     // Отправка данных серверу
     const wchar_t* message = L"Привет, сервер!";
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     while ( s != L"--exit" )
     {
+        std::string str;
         std::getline(std::wcin, s);
-        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-        std::string utf8String = converter.to_bytes(s);
-        if ( send(clientSocket, utf8String.c_str(), s.size(), 0) < 0 )
+        str = converter.to_bytes(s);
+        print_code(str);
+        print_wcode(s);
+        if ( send(clientSocket, str.c_str(), str.size(), 0) < 0 )
         {
             break;
         }
@@ -83,13 +96,6 @@ int main()
 }
 /*int main()
 {
-    // std::setlocale(LC_ALL, "");
-    // SetConsoleOutputCP(1251);
-    // SetConsoleCP(1251);
-    // std::locale::global(std::locale("")); // Устанавливаем текущую локализацию
-    // std::wcout.imbue(std::locale()); // Устанавливаем локализацию для wcout
-    // wcout << L"Привет" << endl;
-
     Json::Value config;
     std::filesystem::path path = std::filesystem::current_path() / "client.json";
     cout << path << endl;
